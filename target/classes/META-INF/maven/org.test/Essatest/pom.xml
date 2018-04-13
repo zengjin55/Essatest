@@ -71,7 +71,7 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>${jmeter.result.jtl.dir}</dir>
-                            <stylesheet>src\test\resources\jmeter-results-detail-report_21.xsl</stylesheet>
+                            <stylesheet>src\test\resources\jmeter-results-detail-report.xsl</stylesheet>
                             <outputDir>${jmeter.result.html.dir1}</outputDir>
                             <fileMappers>
                                 <fileMapper
