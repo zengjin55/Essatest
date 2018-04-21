@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.1" jmeter="3.1 r1770033">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath">E:\jmeter\apache-jmeter-3.1\lib\mongo-java-driver-2.11.3.jar,E:\jmeter\apache-jmeter-3.1\lib\mysql-connector-java-5.1.46.jar,D:\JAVA\jre\lib\ext\mysql-connector-java-5.1.46.jar</stringProp>
+    </TestPlan>
+    <hashTree>
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="链接sit数据库" enabled="true">
+        <stringProp name="TestPlan.comments">		</stringProp>
+        <boolProp name="autocommit">true</boolProp>
+        <stringProp name="checkQuery">Select 1</stringProp>
+        <stringProp name="connectionAge">5000</stringProp>
+        <stringProp name="dataSource">查询sku编号</stringProp>
+        <stringProp name="dbUrl">jdbc:mysql://192.168.1.247:3307/bpms</stringProp>
+        <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+        <boolProp name="keepAlive">true</boolProp>
+        <stringProp name="password">redhat</stringProp>
+        <stringProp name="poolMax">10</stringProp>
+        <stringProp name="timeout">10000</stringProp>
+        <stringProp name="transactionIsolation">DEFAULT</stringProp>
+        <stringProp name="trimInterval">60000</stringProp>
+        <stringProp name="username">root</stringProp>
+      </JDBCDataSource>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="新增SKU" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1515056543000</longProp>
+        <longProp name="ThreadGroup.end_time">1515056543000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="新增单品唯一工厂货号变量" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="facNo" elementType="Argument">
+              <stringProp name="Argument.name">facNo</stringProp>
+              <stringProp name="Argument.value">fac${__time(/1000,)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">工厂货号</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取lt" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">cas.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="It" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">It</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;input type=&quot;hidden&quot; name=&quot;lt&quot; value=&quot;(.+?)&quot; /&gt;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="get_jsessionid" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">jsessionid</stringProp>
+            <stringProp name="RegexExtractor.regex">Set-Cookie: JSESSIONID=(.+?); Path=/cas/; </stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录BPMS-林荣" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="username" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">linrong</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">username</stringProp>
+              </elementProp>
+              <elementProp name="password" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">essa123</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">password</stringProp>
+              </elementProp>
+              <elementProp name="lt" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${It}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">lt</stringProp>
+              </elementProp>
+              <elementProp name="_eventId" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">submit</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">_eventId</stringProp>
+              </elementProp>
+              <elementProp name="submit" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">登录</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">submit</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">cas.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="loginRequestHeader" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Length</stringProp>
+                <stringProp name="Header.value">155</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">JSESSIONID=${jsessionid}; _ga=GA1.2.440190523.1513853121</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Referer</stringProp>
+                <stringProp name="Header.value">http://cas.sit.gz.essa/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Origin</stringProp>
+                <stringProp name="Header.value">http://cas.sit.gz.essa</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                <stringProp name="Header.value">1</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="sid" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">sid</stringProp>
+            <stringProp name="RegexExtractor.regex">Set-Cookie: sid=(.+?); Path=/bpms; HttpOnly</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="Sample.scope">all</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="查询采购商" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;condition&quot;:{&quot;code&quot;:&quot;BWA07320&quot;},&quot;pagingQuery&quot;:{&quot;pageIndex&quot;:1,&quot;pageSize&quot;:50}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/buyer/buyer/archives </stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="queryHeader" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value"> _ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="新增单品" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;model&quot;:{&quot;pkgType&quot;:1,&quot;goodsLangs&quot;:[{&quot;lang&quot;:&quot;zh&quot;,&quot;name&quot;:&quot;TestSKU${__time(/1000,)}&quot;,&quot;keyword&quot;:&quot;TestSKU${__time(/1000,)}&quot;},{&quot;lang&quot;:&quot;en&quot;,&quot;name&quot;:&quot;TestSKU${__time(/1000,)}&quot;}],&quot;skus&quot;:[{&quot;skuKey&quot;:1523604572198,&quot;src&quot;:&quot;1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;skuName&quot;:&quot;10只 声控 TestSKU${__time(/1000,)} 灯光 包电 橙色&quot;,&quot;skuCompose&quot;:&quot;505_203|43_317|37_305|49_105|75_611|199_105|91_19|93_593769|95_580905|230_580905|&quot;,&quot;attributes&quot;:[{&quot;attributeId&quot;:505,&quot;attributeName&quot;:&quot;常规功能&quot;,&quot;code&quot;:&quot;常规功能&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:2,&quot;isCustom&quot;:null,&quot;optionId&quot;:203,&quot;optionName&quot;:&quot;灯光&quot;,&quot;value&quot;:&quot;0102&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:43,&quot;attributeName&quot;:&quot;是否包电&quot;,&quot;code&quot;:&quot;0022&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:4,&quot;isCustom&quot;:null,&quot;optionId&quot;:317,&quot;optionName&quot;:&quot;包电&quot;,&quot;value&quot;:&quot;0159&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:37,&quot;attributeName&quot;:&quot;是否可充电&quot;,&quot;code&quot;:&quot;0019&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:5,&quot;isCustom&quot;:null,&quot;optionId&quot;:305,&quot;optionName&quot;:&quot;可充电&quot;,&quot;value&quot;:&quot;0153&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:null,&quot;attributeId&quot;:51,&quot;attributeName&quot;:null,&quot;sortOrder&quot;:null,&quot;isInherit&quot;:null,&quot;isRequire&quot;:null,&quot;isPhoto&quot;:null,&quot;isVideo&quot;:null,&quot;categoryId&quot;:null,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;isNameAttribute&quot;:null,&quot;version&quot;:null,&quot;action&quot;:null,&quot;code&quot;:null,&quot;type&quot;:null,&quot;isMulti&quot;:null,&quot;optionLists&quot;:null,&quot;canCustom&quot;:null,&quot;optionIds&quot;:[611171],&quot;relateAttributeId&quot;:null}]},{&quot;attributeId&quot;:49,&quot;attributeName&quot;:&quot;配件&quot;,&quot;code&quot;:&quot;0025&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:6,&quot;isCustom&quot;:null,&quot;optionId&quot;:105,&quot;optionName&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:75,&quot;attributeName&quot;:&quot;单品或套装&quot;,&quot;code&quot;:&quot;0038&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:7,&quot;isCustom&quot;:null,&quot;optionId&quot;:611,&quot;optionName&quot;:&quot;单品&quot;,&quot;value&quot;:&quot;0306&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:199,&quot;attributeName&quot;:&quot;局部工艺&quot;,&quot;code&quot;:&quot;JBGY&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:8,&quot;isCustom&quot;:null,&quot;optionId&quot;:105,&quot;optionName&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:91,&quot;attributeName&quot;:&quot;颜色&quot;,&quot;code&quot;:&quot;color&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:9,&quot;isCustom&quot;:null,&quot;optionId&quot;:19,&quot;optionName&quot;:&quot;橙色&quot;,&quot;value&quot;:&quot;0010&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:93,&quot;attributeName&quot;:&quot;装量&quot;,&quot;code&quot;:&quot;capacity&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:10,&quot;isCustom&quot;:null,&quot;optionId&quot;:593769,&quot;optionName&quot;:&quot;9&quot;,&quot;value&quot;:&quot;9&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:95,&quot;attributeName&quot;:&quot;包装类型&quot;,&quot;code&quot;:&quot;PKG&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:11,&quot;isCustom&quot;:null,&quot;optionId&quot;:580905,&quot;optionName&quot;:&quot;OPP袋&quot;,&quot;value&quot;:&quot;PKG_1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:230,&quot;attributeName&quot;:&quot;包装方式&quot;,&quot;code&quot;:&quot;pkg_mode&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:12,&quot;isCustom&quot;:null,&quot;optionId&quot;:580905,&quot;optionName&quot;:&quot;OPP袋&quot;,&quot;value&quot;:&quot;PKG_1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;conditions&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:null,&quot;attributeId&quot;:95,&quot;attributeName&quot;:null,&quot;sortOrder&quot;:null,&quot;isInherit&quot;:null,&quot;isRequire&quot;:null,&quot;isPhoto&quot;:null,&quot;isVideo&quot;:null,&quot;categoryId&quot;:null,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;isNameAttribute&quot;:null,&quot;version&quot;:null,&quot;action&quot;:null,&quot;code&quot;:null,&quot;type&quot;:null,&quot;isMulti&quot;:null,&quot;optionLists&quot;:null,&quot;canCustom&quot;:null,&quot;optionIds&quot;:[580905],&quot;relateAttributeId&quot;:null}]}],&quot;requireAttributes&quot;:[{&quot;attributeId&quot;:37,&quot;attributeName&quot;:&quot;是否可充电&quot;},{&quot;attributeId&quot;:43,&quot;attributeName&quot;:&quot;是否包电&quot;},{&quot;attributeId&quot;:49,&quot;attributeName&quot;:&quot;配件&quot;},{&quot;attributeId&quot;:75,&quot;attributeName&quot;:&quot;单品或套装&quot;},{&quot;attributeId&quot;:91,&quot;attributeName&quot;:&quot;颜色&quot;},{&quot;attributeId&quot;:93,&quot;attributeName&quot;:&quot;装量&quot;},{&quot;attributeId&quot;:95,&quot;attributeName&quot;:&quot;包装类型&quot;},{&quot;attributeId&quot;:199,&quot;attributeName&quot;:&quot;局部工艺&quot;},{&quot;attributeId&quot;:230,&quot;attributeName&quot;:&quot;包装方式&quot;},{&quot;attributeId&quot;:505,&quot;attributeName&quot;:&quot;常规功能&quot;}],&quot;countUnitName&quot;:&quot;只&quot;,&quot;countUnit&quot;:&quot;zhi&quot;,&quot;outBoxUnitName&quot;:&quot;外箱&quot;,&quot;outBoxUnit&quot;:&quot;10&quot;,&quot;isPackageDepart&quot;:0,&quot;isHasSample&quot;:0,&quot;factoryNo&quot;:&quot;${factoryNo}&quot;,&quot;factoryNoBuyer&quot;:&quot;${factoryNo)}&quot;,&quot;showPKGMode&quot;:&quot;OPP袋&quot;,&quot;showGenerateMode&quot;:&quot;包电&quot;,&quot;showNormalMode&quot;:&quot;灯光&quot;,&quot;showFunctionMode&quot;:&quot;无&quot;,&quot;skuName3&quot;:&quot;声控 TestSKU000001 灯光 包电 橙色&quot;,&quot;count&quot;:10,&quot;perPcsPrice&quot;:&quot;12.150&quot;,&quot;priceSupplier&quot;:121.5,&quot;initPrice&quot;:&quot;121.500&quot;,&quot;purchaseMoq&quot;:&quot;30&quot;,&quot;saleMoq&quot;:&quot;30&quot;,&quot;deliverDay&quot;:&quot;30&quot;,&quot;fclPrice&quot;:&quot;122&quot;,&quot;length&quot;:&quot;10&quot;,&quot;width&quot;:&quot;10&quot;,&quot;height&quot;:&quot;10&quot;,&quot;packageLength&quot;:&quot;10&quot;,&quot;packageWidth&quot;:&quot;10&quot;,&quot;packageHeight&quot;:&quot;10&quot;,&quot;outBoxLength&quot;:&quot;10&quot;,&quot;outBoxWidth&quot;:&quot;10&quot;,&quot;outBoxHeight&quot;:&quot;10&quot;,&quot;grossWeight&quot;:&quot;1.2&quot;,&quot;netWeight&quot;:&quot;1.1&quot;,&quot;parts&quot;:[],&quot;packageVolume&quot;:&quot;0.00100000&quot;,&quot;outBoxVolume&quot;:&quot;0.00100000&quot;,&quot;skuPicList&quot;:[]}],&quot;certifications&quot;:[],&quot;freightCostType&quot;:&quot;v&quot;,&quot;src&quot;:&quot;1&quot;,&quot;brandId&quot;:1226,&quot;originProvince&quot;:&quot;440000&quot;,&quot;originCity&quot;:&quot;440500&quot;,&quot;originArea&quot;:&quot;440515&quot;,&quot;supplierId&quot;:4,&quot;categoryId&quot;:115,&quot;secondaryCategorys&quot;:[],&quot;attributes&quot;:[{&quot;attributeId&quot;:65,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:1,&quot;sortOrder&quot;:0,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4535,&quot;categoryAttributeId&quot;:852,&quot;optionId&quot;:105,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:1,&quot;name&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;无&quot;,&quot;isNameAttribute&quot;:1,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:65,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;功能&quot;},{&quot;attributeId&quot;:27,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:1,&quot;sortOrder&quot;:1,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4538,&quot;categoryAttributeId&quot;:853,&quot;optionId&quot;:135,&quot;sortOrder&quot;:1,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;声控&quot;,&quot;value&quot;:&quot;0068&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;声控&quot;,&quot;isNameAttribute&quot;:1,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:27,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;特殊功能&quot;},{&quot;attributeId&quot;:261,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:2,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4548,&quot;categoryAttributeId&quot;:855,&quot;optionId&quot;:179,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;仿真&quot;,&quot;value&quot;:&quot;0090&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;仿真&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:261,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;外观造型&quot;},{&quot;attributeId&quot;:572,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:3,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4546,&quot;categoryAttributeId&quot;:854,&quot;optionId&quot;:63,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;带人&quot;,&quot;value&quot;:&quot;0032&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;带人&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:572,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;是否带人&quot;},{&quot;attributeId&quot;:31,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:4,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4552,&quot;categoryAttributeId&quot;:856,&quot;optionId&quot;:283,&quot;sortOrder&quot;:2,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;6-18个月&quot;,&quot;value&quot;:&quot;0142&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;6-18个月&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:31,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;适用年龄&quot;}],&quot;spuName&quot;:&quot;声控 TestSKU000001&quot;,&quot;mainMaterial&quot;:&quot;js&quot;,&quot;packageLang&quot;:&quot;en&quot;,&quot;copyright&quot;:&quot;1&quot;,&quot;newProtect&quot;:&quot;0&quot;,&quot;countUnit&quot;:&quot;zhi&quot;,&quot;countUnitName&quot;:&quot;只&quot;,&quot;outBoxUnit&quot;:&quot;10&quot;,&quot;outBoxUnitName&quot;:&quot;外箱&quot;,&quot;skuAttributeVOList&quot;:[],&quot;name&quot;:&quot;{facNo}&quot;,&quot;keyword&quot;:&quot;{facNo}&quot;,&quot;compositions&quot;:[{&quot;composition&quot;:&quot;hejin&quot;,&quot;mainSecondary&quot;:&quot;1&quot;}],&quot;goodsPicsList&quot;:[]}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/goods/release/original/add</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="新增单品请求信息头" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">_ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="factoryNo" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="factoryNo" elementType="Argument">
+                <stringProp name="Argument.name">factoryNo</stringProp>
+                <stringProp name="Argument.value">${facNo}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
+          <stringProp name="dataSource">查询sku编号</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select a.id,a.`no`,b.id as id2,b.`name`,c.`code` from bpms.prd_goods_sku a left join bpms.prd_goods b on a.goods_id = b.id left join bpms.sup_supplier c on b.supplier_id=c.id where a.factory_no=&apos;${factoryNo}&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable">results</stringProp>
+          <stringProp name="queryTimeout">20</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">Object skuID = vars.getObject(&quot;results&quot;).get(0).get(&quot;id&quot;); 
+vars.put(&quot;skuid&quot;,skuID.toString());
+Object skuNO = vars.getObject(&quot;results&quot;).get(0).get(&quot;no&quot;); 
+vars.put(&quot;skuno&quot;,skuNO.toString());
+Object supcode = vars.getObject(&quot;results&quot;).get(0).get(&quot;code&quot;); 
+vars.put(&quot;supcode&quot;,supcode.toString());
+Object goodID = vars.getObject(&quot;results&quot;).get(0).get(&quot;id2&quot;);
+vars.put(&quot;goodid&quot;,goodID.toString());
+Object goodname = vars.getObject(&quot;results&quot;).get(0).get(&quot;name&quot;);
+vars.put(&quot;goodname&quot;,goodname.toString());</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="图片更新" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;spuId&quot;:${goodid}, &#xd;
+    &quot;spuName&quot;:&quot;${goodname}&quot;, &#xd;
+    &quot;supplierCode&quot;:&quot;${supcode}&quot;, &#xd;
+    &quot;goodsPicsList&quot;:[{&#xd;
+        &quot;type&quot;: &quot;m&quot;,&#xd;
+        &quot;typeName&quot;: &quot;主图&quot;,&#xd;
+        &quot;sortOrder&quot;: 1,&#xd;
+        &quot;fileId&quot;: 29842650,&#xd;
+        &quot;fileUrl&quot;: &quot;http://static-foo.essatoy.com/4fd9bd73-1d19-4438-bdf1-668cc4d2dd9e.png&quot;&#xd;
+    }], &quot;skuList&quot;:[{&#xd;
+        &quot;no&quot;: &quot;${skuno}&quot;,&#xd;
+        &quot;skuId&quot;: ${skuid},&#xd;
+        &quot;skuPicList&quot;: [{&#xd;
+            &quot;fileId&quot;: 29842651,&#xd;
+            &quot;fileUrl&quot;: &quot;http://static-foo.essatoy.com/3d2f1770-5714-45fa-a636-6759be8075c4.png&quot;,&#xd;
+            &quot;type&quot;: &quot;m&quot;,&#xd;
+            &quot;typeName&quot;: &quot;主图&quot;&#xd;
+        }]&#xd;
+    }]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/goods/release-management/update-pic</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="图片更新请求信息头" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">_ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Pragma</stringProp>
+                <stringProp name="Header.value">no-cache</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Language</stringProp>
+                <stringProp name="Header.value">zh-CN,zh;q=0.9</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Referrer Policy</stringProp>
+                <stringProp name="Header.value">no-referrer-when-downgrade</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取商品信息" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;goodsId&quot;:&quot;${goodid}&quot;,&quot;isUploadPic&quot;:&quot;1&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/goods/release-management/get-modify</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="skupicId" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">skupicid</stringProp>
+            <stringProp name="RegexExtractor.regex">\&quot;skuPicList\&quot;\:\[\{\&quot;id\&quot;\:(.+?)\,\&quot;fileId\&quot;\:29842651</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="goodpicid" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">goodpicid</stringProp>
+            <stringProp name="RegexExtractor.regex">\&quot;goodsPicsList\&quot;\:\[\{\&quot;id\&quot;\:(.+?)\,\&quot;fileId\&quot;\:29842650</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="商品审核请求信息头" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">_ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Pragma</stringProp>
+                <stringProp name="Header.value">no-cache</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Language</stringProp>
+                <stringProp name="Header.value">zh-CN,zh;q=0.9</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Referrer Policy</stringProp>
+                <stringProp name="Header.value">no-referrer-when-downgrade</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="商品审核" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;pageSize&quot;:20,&#xd;
+    &quot;pageIndex&quot;:1,&#xd;
+    &quot;id&quot;:${goodid},&#xd;
+    &quot;code&quot;:null,&#xd;
+    &quot;namePinyin&quot;:null,&#xd;
+    &quot;name&quot;:&quot;${goodname}&quot;,&#xd;
+    &quot;spuName&quot;:&quot;声控 TestSKU1524036947&quot;,&#xd;
+    &quot;skuNo&quot;:null,&#xd;
+    &quot;skuName&quot;:null,&#xd;
+    &quot;factoryNo&quot;:&quot;&quot;,&#xd;
+    &quot;outBoxUnit&quot;:&quot;10&quot;,&#xd;
+    &quot;pkgType&quot;:&quot;1&quot;,&#xd;
+    &quot;pkgs&quot;:null,&#xd;
+    &quot;freightCostType&quot;:&quot;v&quot;,&#xd;
+    &quot;salePoint&quot;:null,&#xd;
+    &quot;accessories&quot;:null,&#xd;
+    &quot;isA&quot;:null,&#xd;
+    &quot;newProtect&quot;:&quot;0&quot;,&#xd;
+    &quot;devLevel&quot;:null,&#xd;
+    &quot;newProtectDate&quot;:null,&#xd;
+    &quot;packageLang&quot;:&quot;en&quot;,&#xd;
+    &quot;countUnit&quot;:&quot;zhi&quot;,&#xd;
+    &quot;originCity&quot;:&quot;440500&quot;,&#xd;
+    &quot;originArea&quot;:&quot;440515&quot;,&#xd;
+    &quot;originProvince&quot;:&quot;440000&quot;,&#xd;
+    &quot;copyright&quot;:&quot;1&quot;,&#xd;
+    &quot;status&quot;:null,&#xd;
+    &quot;brandId&quot;:1226,&#xd;
+    &quot;picId&quot;:null,&#xd;
+    &quot;categoryId&quot;:115,&#xd;
+    &quot;mainMaterial&quot;:&quot;js&quot;,&#xd;
+    &quot;isCategoryError&quot;:null,&#xd;
+    &quot;isAttributeError&quot;:null,&#xd;
+    &quot;isOptionError&quot;:null,&#xd;
+    &quot;isSpecError&quot;:null,&#xd;
+    &quot;src&quot;:&quot;1&quot;,&#xd;
+    &quot;version&quot;:1,&#xd;
+    &quot;isDelete&quot;:null,&#xd;
+    &quot;softDeleteTime&quot;:null,&#xd;
+    &quot;lastUpdateBy&quot;:null,&#xd;
+    &quot;lastUpdateTime&quot;:null,&#xd;
+    &quot;createBy&quot;:null,&#xd;
+    &quot;createTime&quot;:null,&#xd;
+    &quot;lastPicUpdateUserId&quot;:null,&#xd;
+    &quot;lastPicUpdateTime&quot;:null,&#xd;
+    &quot;desc&quot;:null,&#xd;
+    &quot;categoryName&quot;:null,&#xd;
+    &quot;picFileId&quot;:null,&#xd;
+    &quot;tfsUrl&quot;:null,&#xd;
+    &quot;supplierCode&quot;:null,&#xd;
+    &quot;supplierId&quot;:4,&#xd;
+    &quot;supplierName&quot;:null,&#xd;
+    &quot;certifications&quot;:[],&#xd;
+    &quot;compositions&quot;:&#xd;
+    [{&quot;composition&quot;: &quot;hejin&quot;,&#xd;
+        &quot;mainSecondary&quot;: &quot;1&quot;}],&#xd;
+        &quot;goodsLangs&quot;:[{&#xd;
+            &quot;accessories&quot;: null,&#xd;
+            &quot;desc&quot;: null,&#xd;
+            &quot;lang&quot;: &quot;zh&quot;,&#xd;
+            &quot;name&quot;: &quot;${goodname}&quot;,&#xd;
+            &quot;keyword&quot;: &quot;${goodname}&quot;},&#xd;
+            {&quot;accessories&quot;: null,&#xd;
+            &quot;desc&quot;: null,&#xd;
+            &quot;lang&quot;: &quot;en&quot;,&#xd;
+            &quot;name&quot;: &quot;${goodname}&quot;,&#xd;
+            &quot;keyword&quot;: null}],&#xd;
+        &quot;attributes&quot;:[{&#xd;
+        &quot;attributeId&quot;: 65,&#xd;
+        &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+        &quot;isNameAttribute&quot;: 1,&#xd;
+        &quot;sortOrder&quot;: 0,&#xd;
+        &quot;options&quot;: [{&#xd;
+            &quot;pageSize&quot;: 20,&#xd;
+            &quot;pageIndex&quot;: 1,&#xd;
+            &quot;id&quot;: 4535,&#xd;
+            &quot;categoryAttributeId&quot;: 852,&#xd;
+            &quot;optionId&quot;: 105,&#xd;
+            &quot;sortOrder&quot;: 0,&#xd;
+            &quot;lastUpdateBy&quot;: null,&#xd;
+            &quot;lastUpdateTime&quot;: null,&#xd;
+            &quot;createBy&quot;: null,&#xd;
+            &quot;createTime&quot;: null,&#xd;
+            &quot;version&quot;: 1,&#xd;
+            &quot;name&quot;: &quot;无&quot;,&#xd;
+            &quot;value&quot;: &quot;0053&quot;,&#xd;
+            &quot;type&quot;: &quot;s&quot;,&#xd;
+            &quot;typeValue&quot;: &quot;字符&quot;,&#xd;
+            &quot;action&quot;: null,&#xd;
+            &quot;selected&quot;: 1,&#xd;
+            &quot;isCustom&quot;: 0,&#xd;
+            &quot;conditions&quot;: [],&#xd;
+            &quot;relateOptionIds&quot;: null,&#xd;
+            &quot;optionName&quot;: &quot;无&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 1,&#xd;
+            &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+            &quot;attributeId&quot;: 65,&#xd;
+            &quot;code&quot;: null&#xd;
+        }],&#xd;
+        &quot;attributeName&quot;: &quot;功能&quot;},&#xd;
+        {&#xd;
+            &quot;attributeId&quot;: 27,&#xd;
+            &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 1,&#xd;
+            &quot;sortOrder&quot;: 1,&#xd;
+            &quot;options&quot;: [{&#xd;
+                &quot;pageSize&quot;: 20,&#xd;
+                &quot;pageIndex&quot;: 1,&#xd;
+                &quot;id&quot;: 4538,&#xd;
+                &quot;categoryAttributeId&quot;: 853,&#xd;
+                &quot;optionId&quot;: 135,&#xd;
+                &quot;sortOrder&quot;: 1,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: null,&#xd;
+                &quot;createBy&quot;: null,&#xd;
+                &quot;createTime&quot;: null,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;name&quot;: &quot;声控&quot;,&#xd;
+                &quot;value&quot;: &quot;0068&quot;,&#xd;
+                &quot;type&quot;: &quot;s&quot;,&#xd;
+                &quot;typeValue&quot;: &quot;字符&quot;,&#xd;
+                &quot;action&quot;: null,&#xd;
+                &quot;selected&quot;: 1,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;conditions&quot;: [],&#xd;
+                &quot;relateOptionIds&quot;: null,&#xd;
+                &quot;optionName&quot;: &quot;声控&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 1,&#xd;
+                &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+                &quot;attributeId&quot;: 27,&#xd;
+                &quot;code&quot;: null&#xd;
+            }],&#xd;
+            &quot;attributeName&quot;: &quot;特殊功能&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;attributeId&quot;: 261,&#xd;
+            &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 0,&#xd;
+            &quot;sortOrder&quot;: 2,&#xd;
+            &quot;options&quot;: [{&#xd;
+                &quot;pageSize&quot;: 20,&#xd;
+                &quot;pageIndex&quot;: 1,&#xd;
+                &quot;id&quot;: 4548,&#xd;
+                &quot;categoryAttributeId&quot;: 855,&#xd;
+                &quot;optionId&quot;: 179,&#xd;
+                &quot;sortOrder&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: null,&#xd;
+                &quot;createBy&quot;: null,&#xd;
+                &quot;createTime&quot;: null,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;name&quot;: &quot;仿真&quot;,&#xd;
+                &quot;value&quot;: &quot;0090&quot;,&#xd;
+                &quot;type&quot;: &quot;s&quot;,&#xd;
+                &quot;typeValue&quot;: &quot;字符&quot;,&#xd;
+                &quot;action&quot;: null,&#xd;
+                &quot;selected&quot;: 1,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;conditions&quot;: [],&#xd;
+                &quot;relateOptionIds&quot;: null,&#xd;
+                &quot;optionName&quot;: &quot;仿真&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+                &quot;attributeId&quot;: 261,&#xd;
+                &quot;code&quot;: null&#xd;
+            }],&#xd;
+            &quot;attributeName&quot;: &quot;外观造型&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;attributeId&quot;: 572,&#xd;
+            &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 0,&#xd;
+            &quot;sortOrder&quot;: 3,&#xd;
+            &quot;options&quot;: [{&#xd;
+                &quot;pageSize&quot;: 20,&#xd;
+                &quot;pageIndex&quot;: 1,&#xd;
+                &quot;id&quot;: 4546,&#xd;
+                &quot;categoryAttributeId&quot;: 854,&#xd;
+                &quot;optionId&quot;: 63,&#xd;
+                &quot;sortOrder&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: null,&#xd;
+                &quot;createBy&quot;: null,&#xd;
+                &quot;createTime&quot;: null,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;name&quot;: &quot;带人&quot;,&#xd;
+                &quot;value&quot;: &quot;0032&quot;,&#xd;
+                &quot;type&quot;: &quot;s&quot;,&#xd;
+                &quot;typeValue&quot;: &quot;字符&quot;,&#xd;
+                &quot;action&quot;: null,&#xd;
+                &quot;selected&quot;: 1,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;conditions&quot;: [],&#xd;
+                &quot;relateOptionIds&quot;: null,&#xd;
+                &quot;optionName&quot;: &quot;带人&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+                &quot;attributeId&quot;: 572,&#xd;
+                &quot;code&quot;: null&#xd;
+            }],&#xd;
+            &quot;attributeName&quot;: &quot;是否带人&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;attributeId&quot;: 31,&#xd;
+            &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 0,&#xd;
+            &quot;sortOrder&quot;: 4,&#xd;
+            &quot;options&quot;: [{&#xd;
+                &quot;pageSize&quot;: 20,&#xd;
+                &quot;pageIndex&quot;: 1,&#xd;
+                &quot;id&quot;: 4552,&#xd;
+                &quot;categoryAttributeId&quot;: 856,&#xd;
+                &quot;optionId&quot;: 283,&#xd;
+                &quot;sortOrder&quot;: 2,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: null,&#xd;
+                &quot;createBy&quot;: null,&#xd;
+                &quot;createTime&quot;: null,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;name&quot;: &quot;6-18个月&quot;,&#xd;
+                &quot;value&quot;: &quot;0142&quot;,&#xd;
+                &quot;type&quot;: &quot;s&quot;,&#xd;
+                &quot;typeValue&quot;: &quot;字符&quot;,&#xd;
+                &quot;action&quot;: null,&#xd;
+                &quot;selected&quot;: 1,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;conditions&quot;: [],&#xd;
+                &quot;relateOptionIds&quot;: null,&#xd;
+                &quot;optionName&quot;: &quot;6-18个月&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;attributeType&quot;: &quot;s&quot;,&#xd;
+                &quot;attributeId&quot;: 31,&#xd;
+                &quot;code&quot;: null&#xd;
+            }],&#xd;
+            &quot;attributeName&quot;: &quot;适用年龄&quot;&#xd;
+        }],&#xd;
+        &quot;redesigns&quot;:[],&#xd;
+        &quot;secondaryCategorys&quot;:[],&#xd;
+        &quot;skus&quot;:&#xd;
+    [{&#xd;
+        &quot;id&quot;:${skuid},&#xd;
+        &quot;skuId&quot;:${skuid},&#xd;
+        &quot;goodsId&quot;:${goodid},&#xd;
+        &quot;name&quot;: &quot;10PCS 声控 TestSKU1524036947 灯光 包电 橙色&quot;,&#xd;
+        &quot;namePinyin&quot;: &quot;10PCS shengkong TestSKU1524036947 dengguang baodian chengse&quot;,&#xd;
+        &quot;factoryNo&quot;: &quot;${factoryNo}&quot;,&#xd;
+        &quot;deliverDay&quot;: 30,&#xd;
+        &quot;outBoxUnit&quot;: &quot;10&quot;,&#xd;
+        &quot;outBoxLength&quot;: 10,&#xd;
+        &quot;outBoxWidth&quot;: 10,&#xd;
+        &quot;outBoxHeight&quot;: 10,&#xd;
+        &quot;outBoxVolume&quot;: &quot;0.00100000&quot;,&#xd;
+        &quot;outBoxCruft&quot;: 0.03532,&#xd;
+        &quot;packageLength&quot;: 10,&#xd;
+        &quot;packageWidth&quot;: 10,&#xd;
+        &quot;packageHeight&quot;: 10,&#xd;
+        &quot;packageVolume&quot;: &quot;0.00100000&quot;,&#xd;
+        &quot;totalVolume&quot;: 0.001,&#xd;
+        &quot;grossWeight&quot;: 1.2,&#xd;
+        &quot;netWeight&quot;: 1.1,&#xd;
+        &quot;isFixedSale&quot;: 0,&#xd;
+        &quot;no&quot;: &quot;${skuno}&quot;,&#xd;
+        &quot;barCode&quot;: &quot;${__time(/1000,)}&quot;,&#xd;
+        &quot;count&quot;: 10,&#xd;
+        &quot;unit&quot;: &quot;dai&quot;,&#xd;
+        &quot;priceSupplier&quot;: 121.5,&#xd;
+        &quot;priceBase&quot;: 121.5,&#xd;
+        &quot;purchaseMoq&quot;: &quot;30&quot;,&#xd;
+        &quot;webMoq&quot;: 30,&#xd;
+        &quot;hasQuoteRang&quot;: 0,&#xd;
+        &quot;isStopProduct&quot;: 0,&#xd;
+        &quot;status&quot;: &quot;6&quot;,&#xd;
+        &quot;skuCompose&quot;: &quot;505_203|43_317|37_305|49_105|75_611|199_105|91_19|93_593769|95_580905|230_580905|&quot;,&#xd;
+        &quot;src&quot;: &quot;1&quot;,&#xd;
+        &quot;remark&quot;: &quot;&quot;,&#xd;
+        &quot;version&quot;: 2,&#xd;
+        &quot;length&quot;: 10,&#xd;
+        &quot;width&quot;: 10,&#xd;
+        &quot;height&quot;: 10,&#xd;
+        &quot;isPackageDepart&quot;: 0,&#xd;
+        &quot;capacity&quot;: 9,&#xd;
+        &quot;factoryNoBuyer&quot;: &quot;${factoryNo}&quot;,&#xd;
+        &quot;isHasSample&quot;: 0,&#xd;
+        &quot;isHasPkgAgeLabel&quot;: 0,&#xd;
+        &quot;attributes&quot;: [{&#xd;
+            &quot;attributeId&quot;: 505,&#xd;
+            &quot;attributeName&quot;: &quot;常规功能&quot;,&#xd;
+            &quot;code&quot;: &quot;常规功能&quot;,&#xd;
+            &quot;isNameAttribute&quot;: 1,&#xd;
+            &quot;isPhoto&quot;: 1,&#xd;
+            &quot;sortOrder&quot;: 2,&#xd;
+            &quot;isCustom&quot;: null,&#xd;
+            &quot;optionId&quot;: 203,&#xd;
+            &quot;optionName&quot;: &quot;灯光&quot;,&#xd;
+            &quot;value&quot;: &quot;0102&quot;,&#xd;
+            &quot;unit&quot;: null,&#xd;
+            &quot;unitName&quot;: null,&#xd;
+            &quot;conditions&quot;: []&#xd;
+        },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 43,&#xd;
+                &quot;attributeName&quot;: &quot;是否包电&quot;,&#xd;
+                &quot;code&quot;: &quot;0022&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 1,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 4,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 317,&#xd;
+                &quot;optionName&quot;: &quot;包电&quot;,&#xd;
+                &quot;value&quot;: &quot;0159&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 37,&#xd;
+                &quot;attributeName&quot;: &quot;是否可充电&quot;,&#xd;
+                &quot;code&quot;: &quot;0019&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 0,&#xd;
+                &quot;sortOrder&quot;: 5,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 305,&#xd;
+                &quot;optionName&quot;: &quot;可充电&quot;,&#xd;
+                &quot;value&quot;: &quot;0153&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: [{&#xd;
+                    &quot;pageSize&quot;: 20,&#xd;
+                    &quot;pageIndex&quot;: 1,&#xd;
+                    &quot;id&quot;: null,&#xd;
+                    &quot;attributeId&quot;: 51,&#xd;
+                    &quot;attributeName&quot;: null,&#xd;
+                    &quot;sortOrder&quot;: null,&#xd;
+                    &quot;isInherit&quot;: null,&#xd;
+                    &quot;isRequire&quot;: null,&#xd;
+                    &quot;isPhoto&quot;: null,&#xd;
+                    &quot;isVideo&quot;: null,&#xd;
+                    &quot;categoryId&quot;: null,&#xd;
+                    &quot;lastUpdateBy&quot;: null,&#xd;
+                    &quot;lastUpdateTime&quot;: null,&#xd;
+                    &quot;createBy&quot;: null,&#xd;
+                    &quot;createTime&quot;: null,&#xd;
+                    &quot;isNameAttribute&quot;: null,&#xd;
+                    &quot;version&quot;: null,&#xd;
+                    &quot;action&quot;: null,&#xd;
+                    &quot;code&quot;: null,&#xd;
+                    &quot;type&quot;: null,&#xd;
+                    &quot;isMulti&quot;: null,&#xd;
+                    &quot;optionLists&quot;: null,&#xd;
+                    &quot;canCustom&quot;: null,&#xd;
+                    &quot;optionIds&quot;: [611171],&#xd;
+                    &quot;relateAttributeId&quot;: null&#xd;
+                }]&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 49,&#xd;
+                &quot;attributeName&quot;: &quot;配件&quot;,&#xd;
+                &quot;code&quot;: &quot;0025&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 6,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 105,&#xd;
+                &quot;optionName&quot;: &quot;无&quot;,&#xd;
+                &quot;value&quot;: &quot;0053&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 75,&#xd;
+                &quot;attributeName&quot;: &quot;单品或套装&quot;,&#xd;
+                &quot;code&quot;: &quot;0038&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 7,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 611,&#xd;
+                &quot;optionName&quot;: &quot;单品&quot;,&#xd;
+                &quot;value&quot;: &quot;0306&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 199,&#xd;
+                &quot;attributeName&quot;: &quot;局部工艺&quot;,&#xd;
+                &quot;code&quot;: &quot;JBGY&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 1,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 8,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 105,&#xd;
+                &quot;optionName&quot;: &quot;无&quot;,&#xd;
+                &quot;value&quot;: &quot;0053&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 91,&#xd;
+                &quot;attributeName&quot;: &quot;颜色&quot;,&#xd;
+                &quot;code&quot;: &quot;color&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 1,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 9,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 19,&#xd;
+                &quot;optionName&quot;: &quot;橙色&quot;,&#xd;
+                &quot;value&quot;: &quot;0010&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 93,&#xd;
+                &quot;attributeName&quot;: &quot;装量&quot;,&#xd;
+                &quot;code&quot;: &quot;capacity&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 0,&#xd;
+                &quot;sortOrder&quot;: 10,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 593769,&#xd;
+                &quot;optionName&quot;: &quot;9&quot;,&#xd;
+                &quot;value&quot;: &quot;9&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 95,&#xd;
+                &quot;attributeName&quot;: &quot;包装类型&quot;,&#xd;
+                &quot;code&quot;: &quot;PKG&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 0,&#xd;
+                &quot;sortOrder&quot;: 11,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 580905,&#xd;
+                &quot;optionName&quot;: &quot;OPP袋&quot;,&#xd;
+                &quot;value&quot;: &quot;PKG_1&quot;,&#xd;
+                &quot;unit&quot;: &quot;dai&quot;,&#xd;
+                &quot;unitName&quot;: &quot;袋&quot;,&#xd;
+                &quot;conditions&quot;: []&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 230,&#xd;
+                &quot;attributeName&quot;: &quot;包装方式&quot;,&#xd;
+                &quot;code&quot;: &quot;pkg_mode&quot;,&#xd;
+                &quot;isNameAttribute&quot;: 0,&#xd;
+                &quot;isPhoto&quot;: 1,&#xd;
+                &quot;sortOrder&quot;: 12,&#xd;
+                &quot;isCustom&quot;: null,&#xd;
+                &quot;optionId&quot;: 580905,&#xd;
+                &quot;optionName&quot;: &quot;OPP袋&quot;,&#xd;
+                &quot;value&quot;: &quot;PKG_1&quot;,&#xd;
+                &quot;unit&quot;: &quot;dai&quot;,&#xd;
+                &quot;unitName&quot;: &quot;袋&quot;,&#xd;
+                &quot;conditions&quot;: [{&#xd;
+                    &quot;pageSize&quot;: 20,&#xd;
+                    &quot;pageIndex&quot;: 1,&#xd;
+                    &quot;id&quot;: null,&#xd;
+                    &quot;attributeId&quot;: 95,&#xd;
+                    &quot;attributeName&quot;: null,&#xd;
+                    &quot;sortOrder&quot;: null,&#xd;
+                    &quot;isInherit&quot;: null,&#xd;
+                    &quot;isRequire&quot;: null,&#xd;
+                    &quot;isPhoto&quot;: null,&#xd;
+                    &quot;isVideo&quot;: null,&#xd;
+                    &quot;categoryId&quot;: null,&#xd;
+                    &quot;lastUpdateBy&quot;: null,&#xd;
+                    &quot;lastUpdateTime&quot;: null,&#xd;
+                    &quot;createBy&quot;: null,&#xd;
+                    &quot;createTime&quot;: null,&#xd;
+                    &quot;isNameAttribute&quot;: null,&#xd;
+                    &quot;version&quot;: null,&#xd;
+                    &quot;action&quot;: null,&#xd;
+                    &quot;code&quot;: null,&#xd;
+                    &quot;type&quot;: null,&#xd;
+                    &quot;isMulti&quot;: null,&#xd;
+                    &quot;optionLists&quot;: null,&#xd;
+                    &quot;canCustom&quot;: null,&#xd;
+                    &quot;optionIds&quot;: [580905],&#xd;
+                    &quot;relateAttributeId&quot;: null&#xd;
+                }]&#xd;
+            }],&#xd;
+        &quot;parts&quot;: [],&#xd;
+        &quot;srcName&quot;: &quot;原厂&quot;,&#xd;
+        &quot;unitName&quot;: &quot;袋&quot;,&#xd;
+        &quot;skuPicUrl&quot;: &quot;//static-foo.essatoy.com/3d2f1770-5714-45fa-a636-6759be8075c4.png&quot;,&#xd;
+        &quot;outBoxUnitName&quot;: &quot;外箱&quot;,&#xd;
+        &quot;packageTypeValue&quot;: &quot;PKG_1&quot;,&#xd;
+        &quot;packageTypeId&quot;: 580905,&#xd;
+        &quot;packageTypeName&quot;: &quot;OPP袋&quot;,&#xd;
+        &quot;perPcsPrice&quot;: 12.15,&#xd;
+        &quot;fclPrice&quot;: 122,&#xd;
+        &quot;initPrice&quot;: 121.5,&#xd;
+        &quot;skuPicList&quot;: [{&#xd;
+            &quot;id&quot;:${skupicid},&#xd;
+            &quot;fileId&quot;: 29842651,&#xd;
+            &quot;type&quot;: &quot;m&quot;,&#xd;
+            &quot;typeName&quot;: &quot;主图&quot;,&#xd;
+            &quot;fileUrl&quot;: &quot;//static-foo.essatoy.com/3d2f1770-5714-45fa-a636-6759be8075c4.png&quot;,&#xd;
+            &quot;sortOrder&quot;: 1&#xd;
+        }],&#xd;
+        &quot;updateFclPrice&quot;: false,&#xd;
+        &quot;costPrice&quot;: 121.5,&#xd;
+        &quot;colmuns&quot;: [{&#xd;
+            &quot;id&quot;: 13097308,&#xd;
+            &quot;version&quot;: 0,&#xd;
+            &quot;lastUpdateBy&quot;: null,&#xd;
+            &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+            &quot;createBy&quot;: 16,&#xd;
+            &quot;createTime&quot;: 1524036756000,&#xd;
+            &quot;attributeId&quot;: 37,&#xd;
+            &quot;optionId&quot;: 305,&#xd;
+            &quot;goodsSkuId&quot;: 1500971,&#xd;
+            &quot;attributeType&quot;: null,&#xd;
+            &quot;isCustom&quot;: 0,&#xd;
+            &quot;optionName&quot;: &quot;可充电&quot;,&#xd;
+            &quot;attributeName&quot;: &quot;是否可充电&quot;,&#xd;
+            &quot;isPhoto&quot;: null,&#xd;
+            &quot;isNameAttribute&quot;: null,&#xd;
+            &quot;options&quot;: null,&#xd;
+            &quot;sortOrder&quot;: 5,&#xd;
+            &quot;attributeCode&quot;: &quot;0019&quot;,&#xd;
+            &quot;unit&quot;: null,&#xd;
+            &quot;unitName&quot;: null,&#xd;
+            &quot;optionValue&quot;: null&#xd;
+        },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097309,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 43,&#xd;
+                &quot;optionId&quot;: 317,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;包电&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;是否包电&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 4,&#xd;
+                &quot;attributeCode&quot;: &quot;0022&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097310,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 49,&#xd;
+                &quot;optionId&quot;: 105,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;无&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;配件&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 6,&#xd;
+                &quot;attributeCode&quot;: &quot;0025&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097311,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 75,&#xd;
+                &quot;optionId&quot;: 611,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;单品&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;单品或套装&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 7,&#xd;
+                &quot;attributeCode&quot;: &quot;0038&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097312,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 91,&#xd;
+                &quot;optionId&quot;: 19,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;橙色&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;颜色&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 9,&#xd;
+                &quot;attributeCode&quot;: &quot;color&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097313,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 93,&#xd;
+                &quot;optionId&quot;: 593769,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;9&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;装量&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 10,&#xd;
+                &quot;attributeCode&quot;: &quot;capacity&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097314,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 95,&#xd;
+                &quot;optionId&quot;: 580905,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;OPP袋&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;包装类型&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 11,&#xd;
+                &quot;attributeCode&quot;: &quot;PKG&quot;,&#xd;
+                &quot;unit&quot;: &quot;dai&quot;,&#xd;
+                &quot;unitName&quot;: &quot;袋&quot;,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097315,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 199,&#xd;
+                &quot;optionId&quot;: 105,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;无&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;局部工艺&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 8,&#xd;
+                &quot;attributeCode&quot;: &quot;JBGY&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097316,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 230,&#xd;
+                &quot;optionId&quot;: 580905,&#xd;
+                &quot;goodsSkuId&quot;: 1500971,&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;OPP袋&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;包装方式&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 12,&#xd;
+                &quot;attributeCode&quot;: &quot;pkg_mode&quot;,&#xd;
+                &quot;unit&quot;: &quot;dai&quot;,&#xd;
+                &quot;unitName&quot;: &quot;袋&quot;,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;id&quot;: 13097317,&#xd;
+                &quot;version&quot;: 0,&#xd;
+                &quot;lastUpdateBy&quot;: null,&#xd;
+                &quot;lastUpdateTime&quot;: 1524036755000,&#xd;
+                &quot;createBy&quot;: 16,&#xd;
+                &quot;createTime&quot;: 1524036756000,&#xd;
+                &quot;attributeId&quot;: 505,&#xd;
+                &quot;optionId&quot;: 203,&#xd;
+                &quot;goodsSkuId&quot;:${skuid},&#xd;
+                &quot;attributeType&quot;: null,&#xd;
+                &quot;isCustom&quot;: 0,&#xd;
+                &quot;optionName&quot;: &quot;灯光&quot;,&#xd;
+                &quot;attributeName&quot;: &quot;常规功能&quot;,&#xd;
+                &quot;isPhoto&quot;: null,&#xd;
+                &quot;isNameAttribute&quot;: null,&#xd;
+                &quot;options&quot;: null,&#xd;
+                &quot;sortOrder&quot;: 2,&#xd;
+                &quot;attributeCode&quot;: &quot;常规功能&quot;,&#xd;
+                &quot;unit&quot;: null,&#xd;
+                &quot;unitName&quot;: null,&#xd;
+                &quot;optionValue&quot;: null&#xd;
+            }],&#xd;
+        &quot;skuName&quot;: &quot;10只 声控 TestSKU1524036947 灯光 包电 橙色&quot;,&#xd;
+        &quot;countUnitName&quot;: &quot;只&quot;,&#xd;
+        &quot;saleMoq&quot;: &quot;30&quot;,&#xd;
+        &quot;showPKGMode&quot;: &quot;OPP袋&quot;,&#xd;
+        &quot;showGenerateMode&quot;: &quot;包电&quot;,&#xd;
+        &quot;showNormalMode&quot;: &quot;灯光&quot;,&#xd;
+        &quot;showFunctionMode&quot;: &quot;无&quot;,&#xd;
+        &quot;skuName3&quot;: &quot;声控 TestSKU1524036947 灯光 包电 橙色&quot;,&#xd;
+        &quot;requireAttributes&quot;: [{&quot;attributeId&quot;: 37,&#xd;
+            &quot;attributeName&quot;: &quot;是否可充电&quot;},&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 43,&#xd;
+                &quot;attributeName&quot;: &quot;是否包电&quot;&#xd;
+            },&#xd;
+            {&quot;attributeId&quot;: 49,&#xd;
+                &quot;attributeName&quot;: &quot;配件&quot;},&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 75,&#xd;
+                &quot;attributeName&quot;: &quot;单品或套装&quot;&#xd;
+            },&#xd;
+            {&quot;attributeId&quot;: 91,&#xd;
+                &quot;attributeName&quot;: &quot;颜色&quot;},&#xd;
+            {&quot;attributeId&quot;: 93,&#xd;
+                &quot;attributeName&quot;: &quot;装量&quot;},&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 95,&#xd;
+                &quot;attributeName&quot;: &quot;包装类型&quot;&#xd;
+            },&#xd;
+            {&quot;attributeId&quot;: 199,&#xd;
+                &quot;attributeName&quot;: &quot;局部工艺&quot;},&#xd;
+            {&#xd;
+                &quot;attributeId&quot;: 230,&#xd;
+                &quot;attributeName&quot;: &quot;包装方式&quot;&#xd;
+            },&#xd;
+            {&quot;attributeId&quot;: 505,&#xd;
+                &quot;attributeName&quot;: &quot;常规功能&quot;}]&#xd;
+    }],&#xd;
+        &quot;copyrightName&quot;:null,&#xd;
+        &quot;countUnitName&quot;:&quot;只&quot;,&#xd;
+        &quot;freightCostTypeName&quot;:null,&#xd;
+        &quot;goodsPicsList&quot;:[{&#xd;
+             &quot;id&quot;:${goodpicid},&#xd;
+             &quot;fileId&quot;: 29842650,&#xd;
+             &quot;type&quot;: &quot;m&quot;,&#xd;
+             &quot;typeName&quot;: &quot;主图&quot;,&#xd;
+             &quot;fileUrl&quot;: &quot;//static-foo.essatoy.com/4fd9bd73-1d19-4438-bdf1-668cc4d2dd9e.png&quot;,&#xd;
+             &quot;sortOrder&quot;: 1}],&#xd;
+        &quot;mainMaterialName&quot;:null,&#xd;
+        &quot;originAreaName&quot;:null,&#xd;
+        &quot;originCityName&quot;:null,&#xd;
+        &quot;originProvinceName&quot;:null,&#xd;
+        &quot;devLevelName&quot;:null,&#xd;
+        &quot;srcName&quot;:null,&#xd;
+        &quot;videoFileUrl&quot;:null,&#xd;
+        &quot;videoFileId&quot;:null,&#xd;
+        &quot;picFileUrl&quot;:null,&#xd;
+        &quot;skuAttributes&quot;:null,&#xd;
+        &quot;wfWorkId&quot;:null,&#xd;
+        &quot;wfTaskId&quot;:null,&#xd;
+        &quot;bomId&quot;:null,&#xd;
+        &quot;brandFileUrl&quot;:null,&#xd;
+        &quot;brandName&quot;:&quot;@欣悦童车&quot;,&#xd;
+        &quot;serialName&quot;:null,&#xd;
+        &quot;serialFileUrl&quot;:null,&#xd;
+        &quot;categoryPathName&quot;:null,&#xd;
+        &quot;outBoxUnitName&quot;:&quot;外箱&quot;,&#xd;
+        &quot;videoId&quot;:null,&#xd;
+        &quot;onSellUserId&quot;:null,&#xd;
+        &quot;onSellTime&quot;:null,&#xd;
+        &quot;categoryStats&quot;:null,&#xd;
+        &quot;categorySkuAttributes&quot;:null,&#xd;
+        &quot;parts&quot;:[],&#xd;
+        &quot;skuId&quot;:null,&#xd;
+        &quot;auditPersonName&quot;:null,&#xd;
+        &quot;auditTimeStamp&quot;:null,&#xd;
+        &quot;bizCode&quot;:null,&#xd;
+        &quot;auditInfo&quot;:null,&#xd;
+        &quot;delSpuCustomOptions&quot;:null,&#xd;
+        &quot;delSkuCustomOptions&quot;:null,&#xd;
+        &quot;pkgTypeName&quot;:null,&#xd;
+        &quot;brandLogoFileId&quot;:null,&#xd;
+        &quot;serialLogoFileId&quot;:null,&#xd;
+        &quot;processDefinitionId&quot;:null,&#xd;
+        &quot;newProtectDateTimeStamp&quot;:null,&#xd;
+        &quot;packageLangName&quot;:null,&#xd;
+        &quot;keyword&quot;:&quot;${goodname}&quot;,&#xd;
+        &quot;prodevProject&quot;:null,&#xd;
+        &quot;firstSkuPublishDate&quot;:null,&#xd;
+        &quot;picBackLogType&quot;:null,&#xd;
+        &quot;createByName&quot;:null,&#xd;
+        &quot;lastUpdateByName&quot;:null,&#xd;
+        &quot;skuIdListString&quot;:null,&#xd;
+        &quot;canEditSpu&quot;:1,&#xd;
+        &quot;buyerName&quot;:null,&#xd;
+        &quot;pv&quot;:null,&#xd;
+        &quot;ids&quot;:null,&#xd;
+        &quot;categoryManagerId&quot;:null,&#xd;
+        &quot;refSpuId&quot;:0,&#xd;
+        &quot;refSpuVersion&quot;:null,&#xd;
+        &quot;refReasonType&quot;:null,&#xd;
+        &quot;createPlatform&quot;:null,&#xd;
+        &quot;createUserId&quot;:null,&#xd;
+        &quot;lastUpdatePlatform&quot;:null,&#xd;
+        &quot;lastUpdateUserId&quot;:null,&#xd;
+        &quot;spuId&quot;:${goodid},&#xd;
+        &quot;skuAttributeVOList&quot;:[]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/goods/release/original/batch-audit</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="商品审核请求信息头" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">_ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Pragma</stringProp>
+                <stringProp name="Header.value">no-cache</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Accept-Language</stringProp>
+                <stringProp name="Header.value">zh-CN,zh;q=0.9</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Referrer Policy</stringProp>
+                <stringProp name="Header.value">no-referrer-when-downgrade</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

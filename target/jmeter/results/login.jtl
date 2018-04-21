@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testResults version="1.2">
+<httpSample t="127" it="0" lt="127" ct="91" ts="1524282967841" s="true" lb="获取lt" rc="200" rm="OK" tn="新增SKU 1-1" dt="text" by="4729" sby="237" ng="1" na="1"/>
+<httpSample t="59" it="0" lt="29" ct="0" ts="1524282968007" s="true" lb="登录BPMS" rc="200" rm="OK" tn="新增SKU 1-1" dt="text" by="5360" sby="1466" ng="1" na="1">
+  <httpSample t="29" it="0" lt="29" ct="0" ts="1524282968007" s="true" lb="http://cas.sit.gz.essa/cas/login?service=http://bpms.sit.gz.essa/cas/hook" rc="302" rm="Found" tn="新增SKU 1-1" dt="" by="502" sby="625" ng="1" na="1"/>
+  <httpSample t="24" it="0" lt="24" ct="2" ts="1524282968038" s="true" lb="http://bpms.sit.gz.essa/cas/hook?ticket=ST-830-TbArbg9i7TXYxWZWbcxN" rc="302" rm="Found" tn="新增SKU 1-1" dt="" by="440" sby="442" ng="1" na="1"/>
+  <httpSample t="4" it="0" lt="4" ct="0" ts="1524282968062" s="true" lb="http://bpms.sit.gz.essa" rc="200" rm="OK" tn="新增SKU 1-1" dt="text" by="4418" sby="399" ng="1" na="1"/>
+</httpSample>
+<httpSample t="1452" it="0" lt="1451" ct="0" ts="1524282968068" s="true" lb="查询采购商" rc="200" rm="OK" tn="新增SKU 1-1" dt="text" by="1177" sby="379" ng="1" na="1"/>
+<httpSample t="365" it="0" lt="365" ct="0" ts="1524282969521" s="true" lb="新增单品" rc="200" rm="OK" tn="新增SKU 1-1" dt="text" by="338" sby="8288" ng="1" na="1"/>
+
+</testResults>

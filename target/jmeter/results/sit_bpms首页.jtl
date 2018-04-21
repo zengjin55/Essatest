@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testResults version="1.2">
-<httpSample t="2709" it="0" lt="2709" ct="64" ts="1523602129508" s="true" lb="sit_bpms首页" rc="200" rm="OK" tn="线程组 1-1" dt="text" by="4729" sby="168" ng="1" na="1"/>
+<httpSample t="100" it="0" lt="100" ct="66" ts="1524282976797" s="true" lb="sit_bpms首页" rc="200" rm="OK" tn="线程组 1-1" dt="text" by="4729" sby="168" ng="1" na="1"/>
 
 </testResults>

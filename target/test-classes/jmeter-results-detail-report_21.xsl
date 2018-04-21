@@ -113,7 +113,7 @@
 			   {
 			      if(document.getElementById(details_id+"_image").src.match("http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg"))
 			      {
-			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg";
+			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgkhzf6p25j200g00g03d.jpg";
 			         expand(details_id);
 			      }
 			      else
@@ -290,7 +290,7 @@
 				<td align="center">
 				   <a href="">
 				      <xsl:attribute name="href"><xsl:text/>javascript:change('page_details_<xsl:value-of select="position()" />')</xsl:attribute>
-				      <img src="expand.png" alt="expand/collapse"><xsl:attribute name="id"><xsl:text/>page_details_<xsl:value-of select="position()" />_image</xsl:attribute></img>				      
+				      <img src="http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg" alt="expand/collapse"><xsl:attribute name="id"><xsl:text/>page_details_<xsl:value-of select="position()" />_image</xsl:attribute></img>				      
 				   </a>
 				</td>
 			</tr>

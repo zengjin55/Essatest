@@ -77,14 +77,14 @@
 			   
 			   function change(details_id)
 			   {
-			      if(document.getElementById(details_id+"_image").src.match("expand"))
+			      if(document.getElementById(details_id+"_image").src.match("http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg"))
 			      {
-			         document.getElementById(details_id+"_image").src = "collapse.png";
+			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg";
 			         expand(details_id);
 			      }
 			      else
 			      {
-			         document.getElementById(details_id+"_image").src = "expand.png";
+			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg";
 			         collapse(details_id);
 			      } 
                            }
@@ -113,9 +113,9 @@
             <td align="center">1</td>
             <td align="center">0</td>
             <td align="center">100.00%</td>
-            <td align="center">2709 ms</td>
-            <td align="center">2709 ms</td>
-            <td align="center">2709 ms</td>
+            <td align="center">100 ms</td>
+            <td align="center">100 ms</td>
+            <td align="center">100 ms</td>
          </tr>
       </table>
       <hr size="1" width="95%" align="center">
@@ -136,9 +136,9 @@
             <td align="center">1</td>
             <td align="center">0</td>
             <td align="right">100.00%</td>
-            <td align="right">2709 ms</td>
-            <td align="right">2709 ms</td>
-            <td align="right">2709 ms</td>
+            <td align="right">100 ms</td>
+            <td align="right">100 ms</td>
+            <td align="right">100 ms</td>
             <td align="center"><a href="javascript:change('page_details_1')"><img src="expand.png" alt="expand/collapse" id="page_details_1_image"></a></td>
          </tr>
          <tr class="page_details" id="page_details_1">
@@ -154,7 +154,7 @@
                      <tr>
                         <td>线程组 1-1</td>
                         <td align="center">1</td>
-                        <td align="right">2709</td>
+                        <td align="right">100</td>
                         <td align="right">4729</td>
                         <td align="center">true</td>
                      </tr>

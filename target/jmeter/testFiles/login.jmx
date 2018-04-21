@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.1" jmeter="3.1 r1770033">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="新增SKU" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1515056543000</longProp>
+        <longProp name="ThreadGroup.end_time">1515056543000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取lt" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">cas.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="It" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">It</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;input type=&quot;hidden&quot; name=&quot;lt&quot; value=&quot;(.+?)&quot; /&gt;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="get_jsessionid" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">jsessionid</stringProp>
+            <stringProp name="RegexExtractor.regex">Set-Cookie: JSESSIONID=(.+?); Path=/cas/; </stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录BPMS" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="username" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">linrong</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">username</stringProp>
+              </elementProp>
+              <elementProp name="password" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">essa123</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">password</stringProp>
+              </elementProp>
+              <elementProp name="lt" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${It}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">lt</stringProp>
+              </elementProp>
+              <elementProp name="_eventId" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">submit</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">_eventId</stringProp>
+              </elementProp>
+              <elementProp name="submit" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">登录</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">submit</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">cas.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="loginRequestHeader" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Length</stringProp>
+                <stringProp name="Header.value">155</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value">JSESSIONID=${jsessionid}; _ga=GA1.2.440190523.1513853121</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Referer</stringProp>
+                <stringProp name="Header.value">http://cas.sit.gz.essa/cas/login?service=http://bpms.sit.gz.essa/cas/hook</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Origin</stringProp>
+                <stringProp name="Header.value">http://cas.sit.gz.essa</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                <stringProp name="Header.value">1</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="sid" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+            <stringProp name="RegexExtractor.refname">sid</stringProp>
+            <stringProp name="RegexExtractor.regex">Set-Cookie: sid=(.+?); Path=/bpms; HttpOnly</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="Sample.scope">all</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="查询采购商" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;condition&quot;:{&quot;code&quot;:&quot;BWA07320&quot;},&quot;pagingQuery&quot;:{&quot;pageIndex&quot;:1,&quot;pageSize&quot;:50}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/buyer/buyer/archives </stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="queryHeader" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value"> _ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="新增单品" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;model&quot;:{&quot;pkgType&quot;:1,&quot;goodsLangs&quot;:[{&quot;lang&quot;:&quot;zh&quot;,&quot;name&quot;:&quot;TestSKU${__time(/1000,)}&quot;,&quot;keyword&quot;:&quot;TestSKU${__time(/1000,)}&quot;},{&quot;lang&quot;:&quot;en&quot;,&quot;name&quot;:&quot;TestSKU${__time(/1000,)}&quot;}],&quot;skus&quot;:[{&quot;skuKey&quot;:1523604572198,&quot;src&quot;:&quot;1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;skuName&quot;:&quot;10只 声控 TestSKU${__time(/1000,)} 灯光 包电 橙色&quot;,&quot;skuCompose&quot;:&quot;505_203|43_317|37_305|49_105|75_611|199_105|91_19|93_593769|95_580905|230_580905|&quot;,&quot;attributes&quot;:[{&quot;attributeId&quot;:505,&quot;attributeName&quot;:&quot;常规功能&quot;,&quot;code&quot;:&quot;常规功能&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:2,&quot;isCustom&quot;:null,&quot;optionId&quot;:203,&quot;optionName&quot;:&quot;灯光&quot;,&quot;value&quot;:&quot;0102&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:43,&quot;attributeName&quot;:&quot;是否包电&quot;,&quot;code&quot;:&quot;0022&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:4,&quot;isCustom&quot;:null,&quot;optionId&quot;:317,&quot;optionName&quot;:&quot;包电&quot;,&quot;value&quot;:&quot;0159&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:37,&quot;attributeName&quot;:&quot;是否可充电&quot;,&quot;code&quot;:&quot;0019&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:5,&quot;isCustom&quot;:null,&quot;optionId&quot;:305,&quot;optionName&quot;:&quot;可充电&quot;,&quot;value&quot;:&quot;0153&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:null,&quot;attributeId&quot;:51,&quot;attributeName&quot;:null,&quot;sortOrder&quot;:null,&quot;isInherit&quot;:null,&quot;isRequire&quot;:null,&quot;isPhoto&quot;:null,&quot;isVideo&quot;:null,&quot;categoryId&quot;:null,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;isNameAttribute&quot;:null,&quot;version&quot;:null,&quot;action&quot;:null,&quot;code&quot;:null,&quot;type&quot;:null,&quot;isMulti&quot;:null,&quot;optionLists&quot;:null,&quot;canCustom&quot;:null,&quot;optionIds&quot;:[611171],&quot;relateAttributeId&quot;:null}]},{&quot;attributeId&quot;:49,&quot;attributeName&quot;:&quot;配件&quot;,&quot;code&quot;:&quot;0025&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:6,&quot;isCustom&quot;:null,&quot;optionId&quot;:105,&quot;optionName&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:75,&quot;attributeName&quot;:&quot;单品或套装&quot;,&quot;code&quot;:&quot;0038&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:7,&quot;isCustom&quot;:null,&quot;optionId&quot;:611,&quot;optionName&quot;:&quot;单品&quot;,&quot;value&quot;:&quot;0306&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:199,&quot;attributeName&quot;:&quot;局部工艺&quot;,&quot;code&quot;:&quot;JBGY&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:8,&quot;isCustom&quot;:null,&quot;optionId&quot;:105,&quot;optionName&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:91,&quot;attributeName&quot;:&quot;颜色&quot;,&quot;code&quot;:&quot;color&quot;,&quot;isNameAttribute&quot;:1,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:9,&quot;isCustom&quot;:null,&quot;optionId&quot;:19,&quot;optionName&quot;:&quot;橙色&quot;,&quot;value&quot;:&quot;0010&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:93,&quot;attributeName&quot;:&quot;装量&quot;,&quot;code&quot;:&quot;capacity&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:10,&quot;isCustom&quot;:null,&quot;optionId&quot;:593769,&quot;optionName&quot;:&quot;9&quot;,&quot;value&quot;:&quot;9&quot;,&quot;unit&quot;:null,&quot;unitName&quot;:null,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:95,&quot;attributeName&quot;:&quot;包装类型&quot;,&quot;code&quot;:&quot;PKG&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:0,&quot;sortOrder&quot;:11,&quot;isCustom&quot;:null,&quot;optionId&quot;:580905,&quot;optionName&quot;:&quot;OPP袋&quot;,&quot;value&quot;:&quot;PKG_1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;conditions&quot;:[]},{&quot;attributeId&quot;:230,&quot;attributeName&quot;:&quot;包装方式&quot;,&quot;code&quot;:&quot;pkg_mode&quot;,&quot;isNameAttribute&quot;:0,&quot;isPhoto&quot;:1,&quot;sortOrder&quot;:12,&quot;isCustom&quot;:null,&quot;optionId&quot;:580905,&quot;optionName&quot;:&quot;OPP袋&quot;,&quot;value&quot;:&quot;PKG_1&quot;,&quot;unit&quot;:&quot;dai&quot;,&quot;unitName&quot;:&quot;袋&quot;,&quot;conditions&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:null,&quot;attributeId&quot;:95,&quot;attributeName&quot;:null,&quot;sortOrder&quot;:null,&quot;isInherit&quot;:null,&quot;isRequire&quot;:null,&quot;isPhoto&quot;:null,&quot;isVideo&quot;:null,&quot;categoryId&quot;:null,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;isNameAttribute&quot;:null,&quot;version&quot;:null,&quot;action&quot;:null,&quot;code&quot;:null,&quot;type&quot;:null,&quot;isMulti&quot;:null,&quot;optionLists&quot;:null,&quot;canCustom&quot;:null,&quot;optionIds&quot;:[580905],&quot;relateAttributeId&quot;:null}]}],&quot;requireAttributes&quot;:[{&quot;attributeId&quot;:37,&quot;attributeName&quot;:&quot;是否可充电&quot;},{&quot;attributeId&quot;:43,&quot;attributeName&quot;:&quot;是否包电&quot;},{&quot;attributeId&quot;:49,&quot;attributeName&quot;:&quot;配件&quot;},{&quot;attributeId&quot;:75,&quot;attributeName&quot;:&quot;单品或套装&quot;},{&quot;attributeId&quot;:91,&quot;attributeName&quot;:&quot;颜色&quot;},{&quot;attributeId&quot;:93,&quot;attributeName&quot;:&quot;装量&quot;},{&quot;attributeId&quot;:95,&quot;attributeName&quot;:&quot;包装类型&quot;},{&quot;attributeId&quot;:199,&quot;attributeName&quot;:&quot;局部工艺&quot;},{&quot;attributeId&quot;:230,&quot;attributeName&quot;:&quot;包装方式&quot;},{&quot;attributeId&quot;:505,&quot;attributeName&quot;:&quot;常规功能&quot;}],&quot;countUnitName&quot;:&quot;只&quot;,&quot;countUnit&quot;:&quot;zhi&quot;,&quot;outBoxUnitName&quot;:&quot;外箱&quot;,&quot;outBoxUnit&quot;:&quot;10&quot;,&quot;isPackageDepart&quot;:0,&quot;isHasSample&quot;:0,&quot;factoryNo&quot;:&quot;Test00002&quot;,&quot;factoryNoBuyer&quot;:&quot;Test00002&quot;,&quot;showPKGMode&quot;:&quot;OPP袋&quot;,&quot;showGenerateMode&quot;:&quot;包电&quot;,&quot;showNormalMode&quot;:&quot;灯光&quot;,&quot;showFunctionMode&quot;:&quot;无&quot;,&quot;skuName3&quot;:&quot;声控 TestSKU000001 灯光 包电 橙色&quot;,&quot;count&quot;:10,&quot;perPcsPrice&quot;:&quot;12.150&quot;,&quot;priceSupplier&quot;:121.5,&quot;initPrice&quot;:&quot;121.500&quot;,&quot;purchaseMoq&quot;:&quot;30&quot;,&quot;saleMoq&quot;:&quot;30&quot;,&quot;deliverDay&quot;:&quot;30&quot;,&quot;fclPrice&quot;:&quot;122&quot;,&quot;length&quot;:&quot;10&quot;,&quot;width&quot;:&quot;10&quot;,&quot;height&quot;:&quot;10&quot;,&quot;packageLength&quot;:&quot;10&quot;,&quot;packageWidth&quot;:&quot;10&quot;,&quot;packageHeight&quot;:&quot;10&quot;,&quot;outBoxLength&quot;:&quot;10&quot;,&quot;outBoxWidth&quot;:&quot;10&quot;,&quot;outBoxHeight&quot;:&quot;10&quot;,&quot;grossWeight&quot;:&quot;1.2&quot;,&quot;netWeight&quot;:&quot;1.1&quot;,&quot;parts&quot;:[],&quot;packageVolume&quot;:&quot;0.00100000&quot;,&quot;outBoxVolume&quot;:&quot;0.00100000&quot;,&quot;skuPicList&quot;:[]}],&quot;certifications&quot;:[],&quot;freightCostType&quot;:&quot;v&quot;,&quot;src&quot;:&quot;1&quot;,&quot;brandId&quot;:1226,&quot;originProvince&quot;:&quot;440000&quot;,&quot;originCity&quot;:&quot;440500&quot;,&quot;originArea&quot;:&quot;440515&quot;,&quot;supplierId&quot;:4,&quot;categoryId&quot;:115,&quot;secondaryCategorys&quot;:[],&quot;attributes&quot;:[{&quot;attributeId&quot;:65,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:1,&quot;sortOrder&quot;:0,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4535,&quot;categoryAttributeId&quot;:852,&quot;optionId&quot;:105,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:1,&quot;name&quot;:&quot;无&quot;,&quot;value&quot;:&quot;0053&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;无&quot;,&quot;isNameAttribute&quot;:1,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:65,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;功能&quot;},{&quot;attributeId&quot;:27,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:1,&quot;sortOrder&quot;:1,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4538,&quot;categoryAttributeId&quot;:853,&quot;optionId&quot;:135,&quot;sortOrder&quot;:1,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;声控&quot;,&quot;value&quot;:&quot;0068&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;声控&quot;,&quot;isNameAttribute&quot;:1,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:27,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;特殊功能&quot;},{&quot;attributeId&quot;:261,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:2,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4548,&quot;categoryAttributeId&quot;:855,&quot;optionId&quot;:179,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;仿真&quot;,&quot;value&quot;:&quot;0090&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;仿真&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:261,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;外观造型&quot;},{&quot;attributeId&quot;:572,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:3,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4546,&quot;categoryAttributeId&quot;:854,&quot;optionId&quot;:63,&quot;sortOrder&quot;:0,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;带人&quot;,&quot;value&quot;:&quot;0032&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;带人&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:572,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;是否带人&quot;},{&quot;attributeId&quot;:31,&quot;attributeType&quot;:&quot;s&quot;,&quot;isNameAttribute&quot;:0,&quot;sortOrder&quot;:4,&quot;options&quot;:[{&quot;pageSize&quot;:20,&quot;pageIndex&quot;:1,&quot;id&quot;:4552,&quot;categoryAttributeId&quot;:856,&quot;optionId&quot;:283,&quot;sortOrder&quot;:2,&quot;lastUpdateBy&quot;:null,&quot;lastUpdateTime&quot;:null,&quot;createBy&quot;:null,&quot;createTime&quot;:null,&quot;version&quot;:0,&quot;name&quot;:&quot;6-18个月&quot;,&quot;value&quot;:&quot;0142&quot;,&quot;type&quot;:&quot;s&quot;,&quot;typeValue&quot;:&quot;字符&quot;,&quot;action&quot;:null,&quot;selected&quot;:null,&quot;isCustom&quot;:0,&quot;conditions&quot;:[],&quot;relateOptionIds&quot;:null,&quot;optionName&quot;:&quot;6-18个月&quot;,&quot;isNameAttribute&quot;:0,&quot;attributeType&quot;:&quot;s&quot;,&quot;attributeId&quot;:31,&quot;code&quot;:null}],&quot;attributeName&quot;:&quot;适用年龄&quot;}],&quot;spuName&quot;:&quot;声控 TestSKU000001&quot;,&quot;mainMaterial&quot;:&quot;js&quot;,&quot;packageLang&quot;:&quot;en&quot;,&quot;copyright&quot;:&quot;1&quot;,&quot;newProtect&quot;:&quot;0&quot;,&quot;countUnit&quot;:&quot;zhi&quot;,&quot;countUnitName&quot;:&quot;只&quot;,&quot;outBoxUnit&quot;:&quot;10&quot;,&quot;outBoxUnitName&quot;:&quot;外箱&quot;,&quot;skuAttributeVOList&quot;:[],&quot;name&quot;:&quot;TestSKU000001&quot;,&quot;keyword&quot;:&quot;TestSKU000001&quot;,&quot;compositions&quot;:[{&quot;composition&quot;:&quot;hejin&quot;,&quot;mainSecondary&quot;:&quot;1&quot;}],&quot;goodsPicsList&quot;:[]}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">bpms.sit.gz.essa</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/data/bpms/goods/release/original/add</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Cookie</stringProp>
+                <stringProp name="Header.value"> _ga=GA1.2.440190523.1513853121; sid=${sid}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
