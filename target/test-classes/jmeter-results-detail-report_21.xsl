@@ -111,14 +111,14 @@
 			   
 			   function change(details_id)
 			   {
-			      if(document.getElementById(details_id+"_image").src.match("http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg"))
+			      if(document.getElementById(details_id+"_image").src.match("expand"))
 			      {
-			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg";
+			         document.getElementById(details_id+"_image").src = "collapse.png";
 			         expand(details_id);
 			      }
 			      else
 			      {
-			         document.getElementById(details_id+"_image").src = "http://ww1.sinaimg.cn/large/6fa4e58agy1fgki2i10o8j200g00g03i.jpg";
+			         document.getElementById(details_id+"_image").src = "expand.png";
 			         collapse(details_id);
 			      } 
                            }
